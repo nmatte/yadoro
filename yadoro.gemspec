@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'yapom/version'
+require 'yadoro/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "yapom"
-  spec.version       = Yapom::VERSION
+  spec.name          = "yadoro"
+  spec.version       = Yadoro::VERSION
   spec.authors       = ["Nathan Matteson"]
   spec.email         = ["nwmatteson@gmail.com"]
 
@@ -29,4 +29,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency 'byebug', '~> 9.0', '>= 9.0.5'
+  spec.add_dependency "thor", "~> 0.19"
+  spec.add_dependency "terminal-notifier", "1.6"
+  spec.add_dependency 'ruby-progressbar', '~> 1.8', '>= 1.8.1'
 end
