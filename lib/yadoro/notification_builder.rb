@@ -5,13 +5,13 @@ module Yadoro
     end
 
     def title(title)
-      @commands << "-title #{title}"
+      @commands << "-title #{title}" unless title.nil?
       # @title = title
       self
     end
 
     def subtitle(subtitle)
-      @commands << "-subtitle #{subtitle}"
+      @commands << "-subtitle #{subtitle}" unless subtitle.nil?
       # @subtitle = subtitle
       self
     end
@@ -23,7 +23,7 @@ module Yadoro
     end
 
     def message(message)
-      @commands << "-message #{message}"
+      @commands << "-message #{message}" unless message.nil?
       # @message = message
       self
     end

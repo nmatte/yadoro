@@ -10,13 +10,14 @@ module Yadoro
     def start(*msg)
       message = msg.join(" ")
       minutes = 25
+
       NotificationBuilder.new
         .title("Pomodoro start")
         .subtitle("#{minutes} minutes remaining")
         .has_sound(true)
         .message(message)
         .notify
-      # `terminal-notifier -title Pomodoro start -subtitle "#{minutes} minutes remaining" -sound default -message "#{message}"`
+
       t = Thread.new do
         prog = ProgressBar.create(
         title: Yadoro.timestamp,
@@ -39,7 +40,12 @@ module Yadoro
       length: minutes + 10,
       format: "%a ✓ %B 🍅"
       )
-      `terminal-notifier -title Pomodoro start -subtitle "5 minutes remaining" -sound default -message "#{message}"`
+      NotificationBuilder.new
+        .title("Pomodoro start")
+        .subtitle("5 minutes remaining")
+        .has_sound(true)
+        .message(message)
+        .notify
       (rest_minutes * 60).times do
         rest.increment
         sleep 1
