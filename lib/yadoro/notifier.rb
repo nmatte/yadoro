@@ -1,6 +1,6 @@
 module Yadoro
-  class Notification
-    def initialize(config)
+  class Notifier
+    def initialize(config = {})
       @config = {start: 25, start_msg: "", break: 5}.merge(config)
     end
 

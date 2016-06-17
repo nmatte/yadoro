@@ -13,9 +13,8 @@ module Yadoro
       message = msg.join(" ")
       minutes = 25
 
-      notifier = Yadoro::Notification.new({start_msg: message})
+      notifier = Yadoro::Notifier.new(start_msg: message)
       notifier.start_notification
-
 
       t = Thread.new do
         prog = ProgressBar.create(
@@ -39,7 +38,7 @@ module Yadoro
       length: minutes + 10,
       format: "%a ✓ %B 🍅"
       )
-      
+
       notifier.break_notification
       (rest_minutes * 60).times do
         rest.increment
