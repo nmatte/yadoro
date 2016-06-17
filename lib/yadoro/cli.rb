@@ -2,6 +2,8 @@ require 'thor'
 require 'terminal-notifier'
 require 'ruby-progressbar'
 require_relative 'notification_builder.rb'
+require_relative 'notification.rb'
+
 module Yadoro
   class YadoroCLI < Thor
 
@@ -11,12 +13,9 @@ module Yadoro
       message = msg.join(" ")
       minutes = 25
 
-      NotificationBuilder.new
-        .title("Pomodoro start")
-        .subtitle("#{minutes} minutes remaining")
-        .has_sound(true)
-        .message(message)
-        .notify
+      notifier = Yadoro::Notification.new({start_msg: message})
+      notifier.start_notification
+
 
       t = Thread.new do
         prog = ProgressBar.create(
@@ -40,12 +39,8 @@ module Yadoro
       length: minutes + 10,
       format: "%a ✓ %B 🍅"
       )
-      NotificationBuilder.new
-        .title("Pomodoro start")
-        .subtitle("5 minutes remaining")
-        .has_sound(true)
-        .message(message)
-        .notify
+      
+      notifier.break_notification
       (rest_minutes * 60).times do
         rest.increment
         sleep 1
@@ -55,8 +50,8 @@ module Yadoro
         .has_sound(true)
         .notify
 
-    rescue Exception
-      puts "o shit waddup"
+    rescue Exception => e
+      puts e.message
     end
 
     desc "saves shit", "shit"
@@ -69,6 +64,8 @@ module Yadoro
     end
 
     default_task :start
+
+    private
   end
 
 
