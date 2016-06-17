@@ -50,7 +50,10 @@ module Yadoro
         rest.increment
         sleep 1
       end
-      `terminal-notifier -title Pomodoro start -subtitle "Pomodoro complete!" -sound default -message "#{message}"`
+      NotificationBuilder.new
+        .title("Pomodoro complete!")
+        .has_sound(true)
+        .notify
 
     rescue Exception
       puts "o shit waddup"
