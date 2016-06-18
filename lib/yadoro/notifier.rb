@@ -1,3 +1,5 @@
+require_relative 'notification_builder.rb'
+
 module Yadoro
   class Notifier
     def initialize(config)
