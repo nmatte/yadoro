@@ -1,54 +1,25 @@
 require 'thor'
 require 'terminal-notifier'
 require 'ruby-progressbar'
-require_relative 'notification_builder.rb'
-require_relative 'notification.rb'
+require_relative 'notifier.rb'
+require_relative 'pomo.rb'
+require_relative 'configuration.rb'
 
 module Yadoro
   class YadoroCLI < Thor
-
     desc "Do the thing", "The the thing do the thing"
     long_desc "Does a thing"
     def start(*msg)
-      message = msg.join(" ")
-      minutes = 25
+      config = Yadoro::Configuration.new(task: msg.join(" "))
+      notifier = Yadoro::Notifier.new(config)
+      pomo = Yadoro::Pomo.new(config)
 
-      notifier = Yadoro::Notifier.new(start_msg: message)
       notifier.start_notification
+      pomo.do_work
 
-      t = Thread.new do
-        prog = ProgressBar.create(
-        title: Yadoro.timestamp,
-        total: minutes * 60,
-        length: minutes + 10,
-        format: "%a 🍅  %B ✓"
-        )
-        loop do
-          prog.increment
-          sleep 1
-        end
-      end
-
-      sleep minutes * 60
-      t.kill
-      rest_minutes = 5
-      rest = ProgressBar.create(
-      title: Yadoro.timestamp,
-      total: minutes * 60,
-      length: minutes + 10,
-      format: "%a ✓ %B 🍅"
-      )
-
-      notifier.break_notification
-      (rest_minutes * 60).times do
-        rest.increment
-        sleep 1
-      end
-      NotificationBuilder.new
-        .title("Pomodoro complete!")
-        .has_sound(true)
-        .notify
-
+      # notifier.break_notification
+      # pomo.do_break
+      # notifier.end_notification
     rescue Exception => e
       puts e.message
     end
@@ -65,11 +36,5 @@ module Yadoro
     default_task :start
 
     private
-  end
-
-
-
-  def self.timestamp
-    Time.now.strftime("%H:%M")
   end
 end

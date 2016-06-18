@@ -1,24 +1,31 @@
 module Yadoro
   class Notifier
-    def initialize(config = {})
-      @config = {start: 25, start_msg: "", break: 5}.merge(config)
+    def initialize(config)
+      @config = config
     end
 
     def start_notification
       NotificationBuilder.new
         .title("Pomodoro start")
-        .subtitle("#{@config[:start]} minutes remaining")
+        .subtitle("#{@config.work_minutes} minutes remaining")
         .has_sound(true)
-        .message(@config[:start_msg])
+        .message(@config.task)
         .notify
     end
 
     def break_notification
       NotificationBuilder.new
         .title("Break start")
-        .subtitle("#{@config[:break]} remaining")
+        .subtitle("#{@config.break_minutes} remaining")
         .has_sound(true)
-        .message(@config[:start_msg])
+        .message(@config.task)
+        .notify
+    end
+
+    def end_notification
+      NotificationBuilder.new
+        .title("Pomodoro complete!")
+        .has_sound(true)
         .notify
     end
   end
