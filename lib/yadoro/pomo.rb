@@ -12,19 +12,23 @@ module Yadoro
       #   format: "%a 🍅  %B ✓"
       #   )
 
-      clock = Thread.new do
-        prog = ProgressBar.create(
-          total: @config.work_seconds,
-          format: "%a 🍅  %B  ✓"
-        )
-        @config.work_seconds.times {prog.increment; sleep 1}
-      end
-
-      sleep @config.work_seconds
-      clock.kill
+      do_timer(@config.work_seconds)
     end
 
     def do_break
+    end
+
+    def do_timer(seconds_duration)
+      clock = Thread.new do
+        prog = ProgressBar.create(
+          total: seconds_duration,
+          format: "%a 🍅  %B  ✓"
+        )
+        seconds_duration.times {prog.increment; sleep 1}
+      end
+
+      sleep seconds_duration
+      clock.kill
     end
 
     def timestamp
