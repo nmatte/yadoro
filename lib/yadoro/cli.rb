@@ -1,6 +1,7 @@
 require 'thor'
 require 'terminal-notifier'
 require 'ruby-progressbar'
+require 'yaml'
 require_relative 'notifier.rb'
 require_relative 'pomo.rb'
 require_relative 'configuration.rb'
@@ -27,10 +28,15 @@ module Yadoro
 
     desc "test save", "test save"
     long_desc "saves whatever thangs you want into ~/.yadoro"
-    def save(*msg)
+    def save
       f = File.open(File.expand_path('~/.yadoro'), 'w')
-      f.puts(msg.join(" "))
-      f.puts({o: "dang waddup", here: "come dat boi"})
+      configs = {
+        "configs" => [
+          {"config_1" => {"work_minutes" => 25, "break_minutes" => 5}},
+          {"config_2" => {"work_minutes" => 40, "break_minutes" => 20}}
+        ]
+      }
+      f.puts(configs.to_yaml)
       f.close
     end
 

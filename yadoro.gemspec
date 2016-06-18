@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Nathan Matteson"]
   spec.email         = ["nwmatteson@gmail.com"]
 
-  spec.summary       = %q{Yet another pomodoro, with Taskwarrior integration.}
-  spec.description   = %q{Yet another pomodoro CLI, except this one is integrated with another tool called Taskwarrior.}
+  spec.summary       = %q{Yet another pomodoro.}
+  spec.description   = %q{Yet another pomodoro CLI, complete with desktop notifications.}
   spec.homepage      = "http://github.com/nmatte"
   spec.license       = "MIT"
 

@@ -33,5 +33,9 @@ module Yadoro
     def task
       @options[:task]
     end
+
+    def to_yaml
+      @options.to_yaml
+    end
   end
 end
