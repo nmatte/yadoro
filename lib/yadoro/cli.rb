@@ -25,12 +25,12 @@ module Yadoro
       puts e.message
     end
 
-    desc "saves shit", "shit"
-    long_desc "saves whatever shit you want into ~/.yadoro"
+    desc "test save", "test save"
+    long_desc "saves whatever thangs you want into ~/.yadoro"
     def save(*msg)
       f = File.open(File.expand_path('~/.yadoro'), 'w')
       f.puts(msg.join(" "))
-      f.puts({o: "shit waddup", here: "come dat boi"})
+      f.puts({o: "dang waddup", here: "come dat boi"})
       f.close
     end
 
