@@ -4,25 +4,21 @@ module Yadoro
     def initialize(config)
       @config = config
     end
-    def do_work
-      #   prog = ProgressBar.create(
-      #   title: timestamp,
-      #   total: minutes * 60,
-      #   length: minutes + 10,
-      #   format: "%a 🍅  %B ✓"
-      #   )
 
-      do_timer(@config.work_seconds)
+    def do_work
+      do_timer(@config.work_seconds, "%a 🍅  %B  ✓")
     end
 
     def do_break
+      do_timer(@config.break_seconds, "%a 🍅  %B  ✓")
     end
 
-    def do_timer(seconds_duration)
+    def do_timer(seconds_duration, form)
       clock = Thread.new do
         prog = ProgressBar.create(
           total: seconds_duration,
-          format: "%a 🍅  %B  ✓"
+          length: 50,
+          format: form
         )
         seconds_duration.times {prog.increment; sleep 1}
       end
