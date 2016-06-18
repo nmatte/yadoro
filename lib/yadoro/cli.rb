@@ -17,9 +17,10 @@ module Yadoro
       notifier.start_notification
       pomo.do_work
 
-      # notifier.break_notification
-      # pomo.do_break
-      # notifier.end_notification
+      notifier.break_notification
+      pomo.do_break
+
+      notifier.end_notification
     rescue Exception => e
       puts e.message
     end
