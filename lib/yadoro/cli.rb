@@ -5,23 +5,16 @@ require 'yaml'
 require_relative 'notifier.rb'
 require_relative 'pomo.rb'
 require_relative 'configuration.rb'
+require_relative 'pomo_runner.rb'
 
 module Yadoro
   class YadoroCLI < Thor
-    desc "Do the thing", "The the thing do the thing"
+    desc "Runs a timer", "Runs a timer with the given message"
     long_desc "Does a thing"
     def start(*msg)
       config = Yadoro::Configuration.new(task: msg.join(" "))
-      notifier = Yadoro::Notifier.new(config)
-      pomo = Yadoro::Pomo.new(config)
-
-      notifier.start_notification
-      pomo.do_work
-
-      notifier.break_notification
-      pomo.do_break
-
-      notifier.end_notification
+      runner = PomoRunner.new("config")
+      runner.run
     rescue Exception => e
       puts e.message
     end
