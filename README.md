@@ -24,13 +24,17 @@ To run the timer once without a message:
 
     $ yadoro
 
-To run the timer with a message:
+To run the timer with a message (or none):
 
     $ yadoro start "your message here"
 
 To run the timer once with a message:
 
     $ yadoro one "your message here"
+
+To run the timer with [the optimal work-break balance according to science](https://www.fastcompany.com/3035605/how-to-be-a-success-at-everything/the-exact-amount-of-time-you-should-work-every-day)
+
+    $ yadoro sci "your message here"
 
 ## Contributing
 

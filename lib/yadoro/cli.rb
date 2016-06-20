@@ -9,8 +9,7 @@ require_relative 'pomo_runner.rb'
 
 module Yadoro
   class YadoroCLI < Thor
-    desc "Runs a timer", "Runs a timer with the given message"
-    long_desc "Runs a "
+    desc "Runs a timer", "Runs a timer 4 times with the given message"
     def start(*msg)
       config = Yadoro::Configuration.new(task: msg.join(" "))
       runner = PomoRunner.new(config)
@@ -21,6 +20,7 @@ module Yadoro
     rescue Exception => e
       puts e.message
     end
+
     desc "Runs a timer once", "Runs a timer once with the given message"
     def one(msg="")
       config = Yadoro::Configuration.new(task: msg)
@@ -31,8 +31,23 @@ module Yadoro
       puts e.message
     end
 
+    desc "Runs a timer", "Runs a timer with the given message, with a work time of 52 min. and break of 17 min."
+    def sci(msg="")
+      config = Yadoro::Configuration.new(task: msg, work_minutes: 52, break_minutes: 17)
+      runner = PomoRunner.new(config)
+
+      loop do
+        runner.run
+      end
+    rescue Exception => e
+      puts e.message
+    end
+
+
+
+
     desc "test save", "test save"
-    long_desc "saves whatever thangs you want into ~/.yadoro"
+    long_desc "feature's in the works--you'll be able to save configurations to ~/.yadoro"
     def save
       f = File.open(File.expand_path('~/.yadoro'), 'w')
       configs = {
