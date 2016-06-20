@@ -10,10 +10,22 @@ require_relative 'pomo_runner.rb'
 module Yadoro
   class YadoroCLI < Thor
     desc "Runs a timer", "Runs a timer with the given message"
-    long_desc "Does a thing"
+    long_desc "Runs a "
     def start(*msg)
       config = Yadoro::Configuration.new(task: msg.join(" "))
-      runner = PomoRunner.new("config")
+      runner = PomoRunner.new(config)
+
+      4.times do
+        runner.run
+      end
+    rescue Exception => e
+      puts e.message
+    end
+    desc "Runs a timer once", "Runs a timer once with the given message"
+    def one(msg="")
+      config = Yadoro::Configuration.new(task: msg)
+      runner = PomoRunner.new(config)
+
       runner.run
     rescue Exception => e
       puts e.message
@@ -33,7 +45,7 @@ module Yadoro
       f.close
     end
 
-    default_task :start
+    default_task :one
 
     private
   end

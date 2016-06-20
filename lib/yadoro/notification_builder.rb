@@ -25,7 +25,7 @@ module Yadoro
     end
 
     def notify
-      cmd = "terminal-notifier #{ @commands.values.join(" ")}"
+      cmd = "terminal-notifier #{@commands.values.join(" ")}"
       `#{cmd}`
     end
   end
